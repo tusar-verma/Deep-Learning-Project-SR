@@ -7,7 +7,8 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from model import Net
-from data import get_training_set, get_test_set
+from data import train_test_split
+from dataDownloader import downloadDataSets
 
 
 def train(epoch):
@@ -77,8 +78,9 @@ if __name__ ==  '__main__':
         device = torch.device("cpu")
 
     print('===> Loading datasets')
-    train_set = get_training_set(opt.upscale_factor)
-    test_set = get_test_set(opt.upscale_factor)
+    # aca hay que modificar para que pueda elegir el dataset en vez de hardcodear 
+    downloadDataSets()
+    train_set, test_set = train_test_split(source_path="./dataSets/cars", upscale_factor=opt.upscale_factor, crop_size=256)
     training_data_loader = DataLoader(dataset=train_set, num_workers=opt.threads, batch_size=opt.batchSize, shuffle=True)
     testing_data_loader = DataLoader(dataset=test_set, num_workers=opt.threads, batch_size=opt.testBatchSize, shuffle=False)
 
