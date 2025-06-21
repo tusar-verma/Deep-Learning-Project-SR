@@ -44,8 +44,12 @@ def test():
 
 
 def checkpoint(epoch, save_dir):
-    model_out_path = save_dir + "/model_epoch_{}.pth".format(epoch)
-    torch.save(model, model_out_path)
+    model_out_path = save_dir + "checkpoint_epoch_{}.pth".format(epoch)
+    torch.save({
+        'epoch': epoch,
+        'model': model,
+        'optimizer': optimizer
+    }, model_out_path)
     print("Checkpoint saved to {}".format(model_out_path))
 
 
@@ -62,6 +66,7 @@ if __name__ ==  '__main__':
     parser.add_argument('--threads', type=int, default=4, help='number of threads for data loader to use')
     parser.add_argument('--seed', type=int, default=123, help='random seed to use. Default=123')
     parser.add_argument('--datasetName', type=str, required=True, help='name of the dataset to use')
+    parser.add_argument('--checkpointToContinueFrom', type=str, default='', help='name of checkpoint to continue training from')
     opt = parser.parse_args()
 
     print(opt)
@@ -96,13 +101,22 @@ if __name__ ==  '__main__':
 
 
     print('===> Building model')
-    model = Net(upscale_factor=opt.upscale_factor).to(device)
+    if opt.checkpointToContinueFrom:
+        print("===> Loading model from checkpoint: {}".format(opt.checkpointToContinueFrom))
+        aCheckpoint = torch.load(opt.checkpointToContinueFrom, weights_only=False)
+        model = aCheckpoint['model']
+        
+        optimizer = aCheckpoint['optimizer']
+        start_epoch = aCheckpoint['epoch'] + 1
+    else:
+        start_epoch = 1
+
+        model = Net(upscale_factor=opt.upscale_factor).to(device)        
+        optimizer = optim.Adam(model.parameters(), lr=opt.lr)
+    
     criterion = nn.MSELoss()
 
-    optimizer = optim.Adam(model.parameters(), lr=opt.lr)
-
-
-    for epoch in range(1, opt.nEpochs + 1):
+    for epoch in range(start_epoch, opt.nEpochs + 1):
         train(epoch)
         test()
         checkpoint(epoch, epoch_save_dir)
