@@ -39,12 +39,19 @@ def downloadData(dropboxLink, outDirName):
     print("Download and extraction complete.")
 
 
-def downloadDataSets():
-    print("Downloading datasets...")
-    link = "https://www.dropbox.com/scl/fi/gnonzprr3ykf3543hye8l/carData.zip?rlkey=0x120m0pn82futkwbvztvqo10&st=qz1ipf1h&dl=0"
-    downloadData(link, "cars") # recordar donde los descargamos para referenciarlos en train_test_split
-    # agregar mas datasets
+def downloadDataSet(datasetName):
+    """
+    Downloads a specific dataset based on its name.
+    Currently supports only the 'cars' dataset.
+    
+    Args:
+        datasetName (str): The name of the dataset to download.
+    """
+    if datasetName == "cars":
+        downloadData("https://www.dropbox.com/scl/fi/gnonzprr3ykf3543hye8l/carData.zip?rlkey=0x120m0pn82futkwbvztvqo10&st=qz1ipf1h&dl=0", datasetName)
+    else:
+        raise ValueError(f"Dataset '{datasetName}' is not supported yet.")
+
 
 if __name__ == "__main__":
-    # test
-    downloadDataSets()
+    downloadDataSet("cars")

@@ -1,6 +1,7 @@
 from __future__ import print_function
 import argparse
 from math import log10
+import os
 
 import torch
 import torch.nn as nn
@@ -8,7 +9,9 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from model import Net
 from data import train_test_split
-from dataDownloader import downloadDataSets
+
+import time
+import dataDownloader
 
 
 def train(epoch):
@@ -40,8 +43,8 @@ def test():
     print("===> Avg. PSNR: {:.4f} dB".format(avg_psnr / len(testing_data_loader)))
 
 
-def checkpoint(epoch):
-    model_out_path = "model_epoch_{}.pth".format(epoch)
+def checkpoint(epoch, save_dir):
+    model_out_path = save_dir + "/model_epoch_{}.pth".format(epoch)
     torch.save(model, model_out_path)
     print("Checkpoint saved to {}".format(model_out_path))
 
@@ -58,6 +61,7 @@ if __name__ ==  '__main__':
     parser.add_argument('--mps', action='store_true', default=False, help='enables macOS GPU training')
     parser.add_argument('--threads', type=int, default=4, help='number of threads for data loader to use')
     parser.add_argument('--seed', type=int, default=123, help='random seed to use. Default=123')
+    parser.add_argument('--datasetName', type=str, required=True, help='name of the dataset to use')
     opt = parser.parse_args()
 
     print(opt)
@@ -71,6 +75,7 @@ if __name__ ==  '__main__':
     use_mps = opt.mps and torch.backends.mps.is_available()
 
     if opt.cuda:
+        print("Using CUDA")
         device = torch.device("cuda")
     elif use_mps:
         device = torch.device("mps")
@@ -79,10 +84,16 @@ if __name__ ==  '__main__':
 
     print('===> Loading datasets')
     # aca hay que modificar para que pueda elegir el dataset en vez de hardcodear 
-    downloadDataSets()
-    train_set, test_set = train_test_split(source_path="./dataSets/cars", upscale_factor=opt.upscale_factor, crop_size=256)
+    dataDownloader.downloadDataSet(opt.datasetName)
+    train_set, test_set = train_test_split(source_path="./dataSets/"+ opt.datasetName, upscale_factor=opt.upscale_factor, crop_size=256)
+    
     training_data_loader = DataLoader(dataset=train_set, num_workers=opt.threads, batch_size=opt.batchSize, shuffle=True)
     testing_data_loader = DataLoader(dataset=test_set, num_workers=opt.threads, batch_size=opt.testBatchSize, shuffle=False)
+
+    # create directory for saving epochs for corresponding dataset
+    epoch_save_dir = "./checkpoints/upscale_factor_x{}/{}/".format(opt.upscale_factor ,opt.datasetName)
+    os.makedirs(os.path.dirname(epoch_save_dir), exist_ok=True)
+
 
     print('===> Building model')
     model = Net(upscale_factor=opt.upscale_factor).to(device)
@@ -94,4 +105,4 @@ if __name__ ==  '__main__':
     for epoch in range(1, opt.nEpochs + 1):
         train(epoch)
         test()
-        checkpoint(epoch)
+        checkpoint(epoch, epoch_save_dir)

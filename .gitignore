@@ -1,5 +1,6 @@
 dataset/
 dataSets/
+checkpoints/
 __pycache__/
 
 *.pth
