@@ -3,6 +3,13 @@ import requests
 import zipfile
 import io
 
+dict_source = {
+    "bsd300": "https://www.dropbox.com/scl/fi/kxvxne6w3maal50mh6na3/BSD300.zip?rlkey=bnul455xvn1ylnpr2aes10xok&st=vojdg78q&dl=0",
+    "cars": "https://www.dropbox.com/scl/fi/gnonzprr3ykf3543hye8l/carData.zip?rlkey=0x120m0pn82futkwbvztvqo10&st=qz1ipf1h&dl=0",
+    "cats": "https://www.dropbox.com/scl/fi/nzh0d2ohurehd47nxk3cv/cats.zip?rlkey=asbtw1gdfcgaktj4x23axf41i&st=8kcngs2a&dl=0",
+    "dogs": "https://www.dropbox.com/scl/fi/utthddnmlo9hhtnqaqrxq/dogs.zip?rlkey=vw76tryyv880l9gomp5mfrzxn&st=hhtqwo08&dl=0"
+}
+
 def downloadData(dropboxLink, outDirName):
     """
     Downloads a ZIP file from a Dropbox shared link and extracts it into ./data/outDirName
@@ -42,16 +49,16 @@ def downloadData(dropboxLink, outDirName):
 def downloadDataSet(datasetName):
     """
     Downloads a specific dataset based on its name.
-    Currently supports only the 'cars' dataset.
+    Currently supports cars, cats, dogs dataset.
     
     Args:
         datasetName (str): The name of the dataset to download.
     """
-    if datasetName == "cars":
-        downloadData("https://www.dropbox.com/scl/fi/gnonzprr3ykf3543hye8l/carData.zip?rlkey=0x120m0pn82futkwbvztvqo10&st=qz1ipf1h&dl=0", datasetName)
+   
+    if datasetName in dict_source:
+        downloadData(dict_source[datasetName], datasetName)
     else:
-        raise ValueError(f"Dataset '{datasetName}' is not supported yet.")
-
+        raise ValueError(f"Dataset '{datasetName}' is not recognized. Available datasets: {list(dict_source.keys())}")
 
 if __name__ == "__main__":
     downloadDataSet("cars")

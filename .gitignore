@@ -4,3 +4,5 @@ checkpoints/
 __pycache__/
 
 *.pth
+
+!**/*100.pth
