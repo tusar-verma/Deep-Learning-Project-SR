@@ -30,7 +30,7 @@ def train(epoch):
     print("===> Epoch {} Complete: Avg. Loss: {:.4f}".format(epoch, epoch_loss / len(training_data_loader)))
 
 
-def test():
+def test(epoch, save_dir):
     avg_psnr = 0
     with torch.no_grad():
         for batch in testing_data_loader:
@@ -40,7 +40,12 @@ def test():
             mse = criterion(prediction, target)
             psnr = 10 * log10(1 / mse.item())
             avg_psnr += psnr
-    print("===> Avg. PSNR: {:.4f} dB".format(avg_psnr / len(testing_data_loader)))
+
+    avg_psnr_epoch = avg_psnr / len(testing_data_loader)
+    print("===> Avg. PSNR: {:.4f} dB".format(avg_psnr_epoch))
+
+    with open(save_dir + "psnr_log.txt", "a") as f:
+        f.write(f"Epoch {epoch}: {avg_psnr_epoch:.4f} dB\n")
 
 
 def checkpoint(epoch, save_dir):
@@ -118,5 +123,7 @@ if __name__ ==  '__main__':
 
     for epoch in range(start_epoch, opt.nEpochs + 1):
         train(epoch)
-        test()
+        test(epoch, epoch_save_dir)
         checkpoint(epoch, epoch_save_dir)
+
+    #os.system("shutdown /h")

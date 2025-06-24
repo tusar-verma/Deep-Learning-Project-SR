@@ -9,7 +9,7 @@ import io
 dict_source = {
     "bsd300": "https://www.dropbox.com/scl/fi/kxvxne6w3maal50mh6na3/BSD300.zip?rlkey=bnul455xvn1ylnpr2aes10xok&st=vojdg78q&dl=0",
     "cars": "https://www.dropbox.com/scl/fi/gnonzprr3ykf3543hye8l/carData.zip?rlkey=0x120m0pn82futkwbvztvqo10&st=qz1ipf1h&dl=0",
-    "cats": "https://www.dropbox.com/scl/fi/w57gmuu2wlz351mvqcsdg/cats.zip?rlkey=vv96hxamdtyag6t6wnfu4gh0u&st=w0oo2x6d&dl=0",
+    "cats": "https://www.dropbox.com/scl/fi/udyzf36km40na6nejuni6/cat.zip?rlkey=nwkexq48h5e83viw3jyxf88k7&st=tjy3s20e&dl=0",
     "dogs": "https://www.dropbox.com/scl/fi/wq1t4o20y9phzr4euc8tf/dogs.zip?rlkey=wioctf72zub76f93461ncm6md&st=vm6sr7jj&dl=0"
 }
 
