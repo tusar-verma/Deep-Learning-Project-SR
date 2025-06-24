@@ -88,9 +88,9 @@ if __name__ ==  '__main__':
         device = torch.device("cpu")
 
     print('===> Loading datasets')
-    # aca hay que modificar para que pueda elegir el dataset en vez de hardcodear 
+  
     dataDownloader.downloadDataSet(opt.datasetName)
-    train_set, test_set = train_test_split(source_path="./dataSets/"+ opt.datasetName, upscale_factor=opt.upscale_factor, crop_size=256)
+    train_set, test_set = train_test_split(source_path="./dataSets/"+ opt.datasetName, upscale_factor=opt.upscale_factor)
     
     training_data_loader = DataLoader(dataset=train_set, num_workers=opt.threads, batch_size=opt.batchSize, shuffle=True)
     testing_data_loader = DataLoader(dataset=test_set, num_workers=opt.threads, batch_size=opt.testBatchSize, shuffle=False)

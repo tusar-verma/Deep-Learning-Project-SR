@@ -3,11 +3,14 @@ import requests
 import zipfile
 import io
 
+
+###### todavia no recorte el dataset de gatos y perros para que sean de 300-ish imagenes #####
+
 dict_source = {
     "bsd300": "https://www.dropbox.com/scl/fi/kxvxne6w3maal50mh6na3/BSD300.zip?rlkey=bnul455xvn1ylnpr2aes10xok&st=vojdg78q&dl=0",
     "cars": "https://www.dropbox.com/scl/fi/gnonzprr3ykf3543hye8l/carData.zip?rlkey=0x120m0pn82futkwbvztvqo10&st=qz1ipf1h&dl=0",
-    "cats": "https://www.dropbox.com/scl/fi/nzh0d2ohurehd47nxk3cv/cats.zip?rlkey=asbtw1gdfcgaktj4x23axf41i&st=8kcngs2a&dl=0",
-    "dogs": "https://www.dropbox.com/scl/fi/utthddnmlo9hhtnqaqrxq/dogs.zip?rlkey=vw76tryyv880l9gomp5mfrzxn&st=hhtqwo08&dl=0"
+    "cats": "https://www.dropbox.com/scl/fi/w57gmuu2wlz351mvqcsdg/cats.zip?rlkey=vv96hxamdtyag6t6wnfu4gh0u&st=w0oo2x6d&dl=0",
+    "dogs": "https://www.dropbox.com/scl/fi/wq1t4o20y9phzr4euc8tf/dogs.zip?rlkey=wioctf72zub76f93461ncm6md&st=vm6sr7jj&dl=0"
 }
 
 def downloadData(dropboxLink, outDirName):

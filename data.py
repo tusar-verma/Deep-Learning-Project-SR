@@ -6,28 +6,6 @@ import torch
 from dataDownloader import downloadData
 
 
-# cuando haya varios datasets, renombrar a carData
-
-
-def calculate_valid_crop_size(crop_size, upscale_factor):
-    return crop_size - (crop_size % upscale_factor)
-
-def input_transform(crop_size, upscale_factor):
-    return Compose([
-        CenterCrop(crop_size),
-        Resize(crop_size // upscale_factor),
-        ToTensor(),
-    ])
-
-def target_transform(crop_size):
-    return Compose([
-        CenterCrop(crop_size),
-        ToTensor(),
-    ])
-
-
-# -----------
-
 def show_images(dataset, num_images=5):
     fig, axes = plt.subplots(2, num_images, figsize=(3*num_images, 6))
     for i in range(num_images):
@@ -49,13 +27,10 @@ def show_images(dataset, num_images=5):
 
 # ----------
 
-def train_test_split(source_path="./out", upscale_factor=2, crop_size=256):
+def train_test_split(source_path="./out", upscale_factor=3):
     # Create a training split from the dataset.
 
-    crop_size = calculate_valid_crop_size(crop_size, upscale_factor)
-    dataset = ImageDataset(source_path, 
-                          transform_in=input_transform(crop_size, upscale_factor), 
-                          transform_out=target_transform(crop_size))
+    dataset = ImageDataset(source_path, scale_factor=upscale_factor)
     
     # Split the dataset into training and testing sets
     train_size = int(0.8 * len(dataset))
@@ -76,7 +51,7 @@ if __name__ == "__main__":
     upscale_factor = 2
     crop_size = 256
 
-    train_dataset, test_dataset = train_test_split(source_path, upscale_factor, crop_size)
+    train_dataset, test_dataset = train_test_split(source_path, upscale_factor)
 
     train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False)
