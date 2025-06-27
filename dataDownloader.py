@@ -8,9 +8,10 @@ import io
 
 dict_source = {
     "bsd300": "https://www.dropbox.com/scl/fi/kxvxne6w3maal50mh6na3/BSD300.zip?rlkey=bnul455xvn1ylnpr2aes10xok&st=vojdg78q&dl=0",
-    "cars": "https://www.dropbox.com/scl/fi/gnonzprr3ykf3543hye8l/carData.zip?rlkey=0x120m0pn82futkwbvztvqo10&st=qz1ipf1h&dl=0",
+    "cars": "https://www.dropbox.com/scl/fi/iah6sccsrpetgq5tbp0b0/cars.zip?rlkey=gchvhhp02pvnj8o0256mppckg&st=im29ir3k&dl=0",
     "cats": "https://www.dropbox.com/scl/fi/udyzf36km40na6nejuni6/cat.zip?rlkey=nwkexq48h5e83viw3jyxf88k7&st=tjy3s20e&dl=0",
-    "dogs": "https://www.dropbox.com/scl/fi/wq1t4o20y9phzr4euc8tf/dogs.zip?rlkey=wioctf72zub76f93461ncm6md&st=vm6sr7jj&dl=0"
+    "dogs": "https://www.dropbox.com/scl/fi/9cauhbnaih8i695v6p2md/dogs.zip?rlkey=lcdyc48mpk11ubggfqs9mvxlc&st=hotllzyy&dl=0",
+    "landscapes": "https://www.dropbox.com/scl/fi/lqwuy6l4e5weui5g87j42/landscape.zip?rlkey=fwgp5ctq4ygz3q5ni7t5g66wq&st=sovhe8sk&dl=0",
 }
 
 def downloadData(dropboxLink, outDirName):
