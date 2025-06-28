@@ -88,3 +88,9 @@ def downloadDataSet(datasetName):
 
 if __name__ == "__main__":
     downloadDataSet("people")
+
+    downloadTestData("people")
+    downloadTestData("cars")
+    downloadTestData("cats")
+    downloadTestData("dogs")
+    downloadTestData("landscapes")

@@ -44,3 +44,5 @@ This example trains a super-resolution network on the [BSD300 dataset](https://w
 ### Compare models performance
 
 `python.exe .\test_models.py --datasetname dogs --upscale_factor 3 --test_dir .\testSets\dogs_test\ --checkpoint .\checkpoints\upscale_factor_x3\dogs\checkpoint_epoch_500.pth --checkpoint_bsd .\checkpoints\upscale_factor_x3\bsd300\checkpoint_epoch_500.pth --cuda`
+
+`python3 test_models.py --datasetname people --upscale_factor 3 --test_dir ./testSets/people --checkpoint ./weights/people.pth --checkpoint_bsd ./weights/bsd.pth --cuda`
