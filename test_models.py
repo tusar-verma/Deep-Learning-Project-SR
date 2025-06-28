@@ -42,7 +42,7 @@ def generate_all_lr_images_and_save(test_images, test_dir, upscale_factor, lr_sa
         lr_img = generate_lr_image(img_hr, upscale_factor)
         lr_img.save(os.path.join(lr_save_dir, img_name))
 
-def run_testset_through_model(datasetname, model, device, test_images, log_file_name, test_dir, lr_dir, sr_save_dir):
+def run_testset_through_model(datasetname, model, device, test_images, log_path_out, test_dir, lr_dir, sr_save_dir):
     psnr_total = 0
     count = 0
     string_output = ""
@@ -83,11 +83,25 @@ def run_testset_through_model(datasetname, model, device, test_images, log_file_
         string_output += f"{datasetname}: Average PSNR: {avg_psnr:.4f} dB\n"
         print(f"{datasetname}: Average PSNR: {avg_psnr:.4f} dB")
 
-        if log_file_name:
-            with open(log_file_name, 'w') as f:
-                f.write(string_output)
+        with open(log_path_out, 'w') as f:
+            f.write(string_output)
     else:
         print("No test images found.")
+
+def experiment_with_checkpoint(checkpoint, log_path_out, device, test_images, lr_save_dir, sr_save_dir_dataset):
+    checkpoint = torch.load(checkpoint, weights_only=False)
+    model = checkpoint['model'].to(device)
+    model.eval()
+
+    run_testset_through_model(opt.datasetname, 
+                              model,
+                              device, 
+                              test_images,
+                              log_path_out, 
+                              opt.test_dir, 
+                              lr_save_dir, 
+                              sr_save_dir_dataset)
+
 
 def main():
     parser = argparse.ArgumentParser(description='Test model and calculate average PSNR (PyTorch-only)')
@@ -95,6 +109,7 @@ def main():
     parser.add_argument('--upscale_factor', type=int, required=True, help="Super resolution upscale factor")
     parser.add_argument('--test_dir', type=str, required=True, help='Directory with test images (HR)')
     parser.add_argument('--checkpoint', type=str, required=True, help='Checkpoint file for model')
+    parser.add_argument('--checkpoint_bsd', type=str, required=True, help='Checkpoint file for BSD model')
     parser.add_argument('--cuda', action='store_true', help='Use CUDA')
 
     if len(sys.argv) == 1:
@@ -104,21 +119,31 @@ def main():
     opt = parser.parse_args()
 
     device = torch.device('cuda' if opt.cuda and torch.cuda.is_available() else 'cpu')
-
-    checkpoint = torch.load(opt.checkpoint, weights_only=False)
-    model = checkpoint['model'].to(device)
-    model.eval()
-
-    test_images = [f for f in os.listdir(opt.test_dir) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+    
+    test_images = [f for f in os.listdir(opt.test_dir) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]    
 
     lr_save_dir = os.path.join('experiments', opt.datasetname, 'lr_output')
-    sr_save_dir = os.path.join('experiments', opt.datasetname, 'sr_output')
+    sr_save_dir_dataset = os.path.join('experiments', opt.datasetname, 'dataset_sr_output')
+    sr_save_dir_bsd = os.path.join('experiments', opt.datasetname, 'bsd_sr_output')
     os.makedirs(lr_save_dir, exist_ok=True)
-    os.makedirs(sr_save_dir, exist_ok=True)
+    os.makedirs(sr_save_dir_dataset, exist_ok=True)
+    os.makedirs(sr_save_dir_bsd, exist_ok=True)
 
     generate_all_lr_images_and_save(test_images, opt.test_dir, opt.upscale_factor, lr_save_dir)
-
-    run_testset_through_model(opt.datasetname, model, device, test_images, os.path.join('experiments', f'{opt.datasetname}_out.txt'), opt.test_dir, lr_save_dir, sr_save_dir)
-
+    
+    experiment_with_checkpoint(opt.checkpoint, 
+                               os.path.join('experiments', opt.datasetname, 'dataset_out.txt'), 
+                               device, 
+                               test_images,
+                               lr_save_dir, 
+                               sr_save_dir_dataset)
+    
+    experiment_with_checkpoint(opt.checkpoint_bsd,
+                               os.path.join('experiments', opt.datasetname,'bsd_out.txt'), 
+                               device, 
+                               test_images, 
+                               lr_save_dir, 
+                               sr_save_dir_bsd)  
+    
 if __name__ == '__main__':
     main()

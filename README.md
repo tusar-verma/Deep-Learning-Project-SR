@@ -40,3 +40,7 @@ This example trains a super-resolution network on the [BSD300 dataset](https://w
 `python3 super_resolve.py --input_image dataset/BSDS300/images/test/16077.jpg --checkpoint checkpoint_epoch_1.pth --output_filename out.png --cuda`
 
 `python3 super_resolve.py --input_image ./nc_lr --checkpoint checkpoint_epoch_1.pth --output_filename out_big.png --cuda`
+
+### Compare models performance
+
+`python.exe .\test_models.py --datasetname dogs --upscale_factor 3 --test_dir .\testSets\dogs_test\ --checkpoint .\checkpoints\upscale_factor_x3\dogs\checkpoint_epoch_500.pth --checkpoint_bsd .\checkpoints\upscale_factor_x3\bsd300\checkpoint_epoch_500.pth --cuda`
