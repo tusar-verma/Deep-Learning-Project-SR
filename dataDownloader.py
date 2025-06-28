@@ -12,6 +12,7 @@ dict_source = {
     "cats": "https://www.dropbox.com/scl/fi/udyzf36km40na6nejuni6/cat.zip?rlkey=nwkexq48h5e83viw3jyxf88k7&st=tjy3s20e&dl=0",
     "dogs": "https://www.dropbox.com/scl/fi/9cauhbnaih8i695v6p2md/dogs.zip?rlkey=lcdyc48mpk11ubggfqs9mvxlc&st=hotllzyy&dl=0",
     "landscapes": "https://www.dropbox.com/scl/fi/lqwuy6l4e5weui5g87j42/landscape.zip?rlkey=fwgp5ctq4ygz3q5ni7t5g66wq&st=sovhe8sk&dl=0",
+    "people" : "https://www.dropbox.com/scl/fi/tvljbws41feghltb064wf/people.zip?rlkey=25u0j55sgsyhxwkcwoug01nf5&st=js8dae4d&dl=0"
 }
 
 def downloadData(dropboxLink, outDirName):
@@ -65,4 +66,4 @@ def downloadDataSet(datasetName):
         raise ValueError(f"Dataset '{datasetName}' is not recognized. Available datasets: {list(dict_source.keys())}")
 
 if __name__ == "__main__":
-    downloadDataSet("cars")
+    downloadDataSet("people")

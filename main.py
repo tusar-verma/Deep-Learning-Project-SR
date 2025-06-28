@@ -126,4 +126,4 @@ if __name__ ==  '__main__':
         test(epoch, epoch_save_dir)
         checkpoint(epoch, epoch_save_dir)
 
-    #os.system("shutdown /h")
+    os.system("systemctl suspend -i")

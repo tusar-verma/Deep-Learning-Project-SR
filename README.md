@@ -28,13 +28,15 @@ This example trains a super-resolution network on the [BSD300 dataset](https://w
 
 ### Train with cuda
 
-`python main.py --upscale_factor 3 --batchSize 4 --testBatchSize 100 --nEpochs 100 --lr 0.001 --datasetName cars --cuda`
+`python3 main.py --upscale_factor 3 --batchSize 256 --testBatchSize 128 --nEpochs 500 --lr 0.001 --datasetName people --cuda`
 
 ### Train continuing from checkpoint
 
-`python main.py --upscale_factor 3 --batchSize 8 --testBatchSize 175 --nEpochs 100 --lr 0.001 --datasetName cars --cuda --checkpointToContinueFrom checkpoint_epoch_1.pth`
+`python3 main.py --upscale_factor 3 --batchSize 8 --testBatchSize 175 --nEpochs 100 --lr 0.001 --datasetName cars --cuda --checkpointToContinueFrom checkpoint_epoch_1.pth`
 
 
 ### Super Resolve
 
-`python super_resolve.py --input_image dataset/BSDS300/images/test/16077.jpg --checkpoint checkpoint_epoch_1.pth --output_filename out.png --cuda`
+`python3 super_resolve.py --input_image dataset/BSDS300/images/test/16077.jpg --checkpoint checkpoint_epoch_1.pth --output_filename out.png --cuda`
+
+`python3 super_resolve.py --input_image ./nc_lr --checkpoint checkpoint_epoch_1.pth --output_filename out_big.png --cuda`
