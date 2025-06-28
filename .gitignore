@@ -3,6 +3,5 @@ dataSets/
 checkpoints/
 __pycache__/
 
-*.pth
-
-!**/*100.pth
+/*.pth
+!/weights/*.pth
