@@ -6,6 +6,8 @@ from torchvision.transforms import ToTensor, ToPILImage
 import os
 import sys
 
+import dataDownloader
+
 img_to_tensor = ToTensor()
 tensor_to_pil = ToPILImage()
 
@@ -37,7 +39,7 @@ def generate_all_lr_images_and_save(test_images, test_dir, upscale_factor, lr_sa
 
     for img_name in test_images:
         img_path = os.path.join(test_dir, img_name)
-        img_hr = Image.open(img_path).convert('YCbCr')
+        img_hr = Image.open(img_path)
         lr_img = generate_lr_image(img_hr, upscale_factor)
         lr_img.save(os.path.join(lr_save_dir, img_name))
 
@@ -118,6 +120,8 @@ def main():
     opt = parser.parse_args()
 
     device = torch.device('cuda' if opt.cuda and torch.cuda.is_available() else 'cpu')
+
+    dataDownloader.downloadTestData(opt.datasetname)
     
     test_images = [f for f in os.listdir(opt.test_dir) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]    
     print(len(test_images))

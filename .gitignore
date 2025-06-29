@@ -6,3 +6,6 @@ __pycache__/
 
 /*.pth
 !/weights/*.pth
+experiments/
+testSets/
+
