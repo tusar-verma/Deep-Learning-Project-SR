@@ -124,6 +124,7 @@ def main():
     dataDownloader.downloadTestData(opt.datasetname)
     
     test_images = [f for f in os.listdir(opt.test_dir) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]    
+    print(len(test_images))
 
     lr_save_dir = os.path.join('experiments', opt.datasetname, 'lr_output')
     sr_save_dir_dataset = os.path.join('experiments', opt.datasetname, 'dataset_sr_output')
