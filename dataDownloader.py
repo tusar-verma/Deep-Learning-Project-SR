@@ -87,10 +87,9 @@ def downloadDataSet(datasetName):
         raise ValueError(f"Dataset '{datasetName}' is not recognized. Available datasets: {list(dict_source.keys())}")
 
 if __name__ == "__main__":
-    downloadDataSet("people")
 
-    downloadTestData("people")
-    downloadTestData("cars")
-    downloadTestData("cats")
-    downloadTestData("dogs")
-    downloadTestData("landscapes")
+    for dataset in dict_source.keys():
+        downloadDataSet(dataset)
+
+    for testset in dict_test.keys():
+        downloadTestData(testset)
