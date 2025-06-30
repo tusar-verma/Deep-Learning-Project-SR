@@ -7,11 +7,11 @@ import io
 ###### todavia no recorte el dataset de gatos y perros para que sean de 300-ish imagenes #####
 
 dict_test = {
-    "cars": "https://www.dropbox.com/scl/fi/kf6lxlu6ayu30v5wz77cc/cars_test.zip?rlkey=fxpr0vawbzhgd0r5u5r4fwfv8&st=sqqgpu8j&dl=0",
-    "cats": "https://www.dropbox.com/scl/fi/i09lf4c4849yxfsett3su/cats_test.zip?rlkey=hpwbi4qcbc0s5uu5jyyasma0b&st=so8h59x7&dl=0",
-    "dogs": "https://www.dropbox.com/scl/fi/5axm0tqvxcuaxyg7zxhcf/dogs_test.zip?rlkey=51fwuosdslkxibtdozjscmc1s&st=kkhz53n2&dl=0",
-    "landscapes": "https://www.dropbox.com/scl/fi/e8hswg4uz2ibo5lkr2wic/landscape_test.zip?rlkey=rjles5o0d4ar33i7nx2vjvezy&st=23mryl5r&dl=0",
-    "people" : "https://www.dropbox.com/scl/fi/5xhhvsp2iwp4vikqg7scm/people_validate.zip?rlkey=t2bt5aqupz6u6z43t23arjjkj&st=lxv79tgc&dl=0"
+    "cars": "https://www.dropbox.com/scl/fi/uae5qgmh0s4fjp7ykzq9z/cars.zip?rlkey=bigx1ssd9iw6m7qoujqepioky&st=s537n4j4&dl=0",
+    "cats": "https://www.dropbox.com/scl/fi/rpe5zh6wpdtgbice6zlkd/cats.zip?rlkey=nccf2b5jdsjya7f582feei39s&st=qcxlb2gt&dl=0",
+    "dogs": "https://www.dropbox.com/scl/fi/2q44u853gkyjtgtemvuce/dogs.zip?rlkey=ps4f2dk6rml3bovlpqvhmvbpa&st=o3my558q&dl=0",
+    "landscapes": "https://www.dropbox.com/scl/fi/xpi1uvesybs7yi874uga2/landscapes.zip?rlkey=2coeqc1h2rfofqzi9udnveglj&st=nefz6qid&dl=0",
+    "people" : "https://www.dropbox.com/scl/fi/8zoohdxpdpgik2w0k3l90/people_test.zip?rlkey=1u24t1n84tte82ryfjfyy3n8r&st=48idqibj&dl=0"
 }
 
 dict_source = {

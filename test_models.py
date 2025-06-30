@@ -124,7 +124,6 @@ def main():
     dataDownloader.downloadTestData(opt.datasetname)
     
     test_images = [f for f in os.listdir(opt.test_dir) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]    
-    print(len(test_images))
 
     lr_save_dir = os.path.join('experiments', opt.datasetname, 'lr_output')
     sr_save_dir_dataset = os.path.join('experiments', opt.datasetname, 'dataset_sr_output')
@@ -135,6 +134,7 @@ def main():
 
     generate_all_lr_images_and_save(test_images, opt.test_dir, opt.upscale_factor, lr_save_dir)
     
+    print("Experimenting with custom model")
     experiment_with_checkpoint(opt.checkpoint, 
                                os.path.join('experiments', opt.datasetname, 'dataset_out.txt'), 
                                device, 
@@ -142,6 +142,7 @@ def main():
                                lr_save_dir, 
                                sr_save_dir_dataset)
     
+    print("Experimenting with bsd300 model")
     experiment_with_checkpoint(opt.checkpoint_bsd,
                                os.path.join('experiments', opt.datasetname,'bsd_out.txt'), 
                                device, 
